@@ -2,8 +2,8 @@ require 'formula'
 
 class Elasticsearch < Formula
   homepage 'http://www.elasticsearch.org'
-  url "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz"
-  sha256 "86a0c20eea6ef55b14345bff5adf896e6332437b19180c4582a346394abde019"
+  url 'https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz'
+  sha256 '86a0c20eea6ef55b14345bff5adf896e6332437b19180c4582a346394abde019'
   version '1.7.1'
 
   head do
@@ -47,15 +47,15 @@ class Elasticsearch < Formula
       s.gsub! /#\s*cluster\.name\: elasticsearch/, "cluster.name: #{cluster_name}"
 
       # 2. Configure paths
-      s.sub! "#path.data: /path/to/data", "path.data: #{var}/elasticsearch/"
-      s.sub! "#path.logs: /path/to/logs", "path.logs: #{var}/log/elasticsearch/"
-      s.sub! "#path.plugins: /path/to/plugins", "path.plugins: #{var}/lib/elasticsearch/plugins"
+      s.sub! "# path.data: /path/to/data", "path.data: #{var}/elasticsearch/"
+      s.sub! "# path.logs: /path/to/logs", "path.logs: #{var}/log/elasticsearch/"
+      s.sub! "# path.plugins: /path/to/plugins", "path.plugins: #{var}/lib/elasticsearch/plugins"
 
       # 3. Bind to loopback IP for laptops roaming different networks
-      s.gsub! /#network\.host\: [^\n]+/, "network.host: 127.0.0.1"
+      s.gsub! /# network\.host\: [^\n]+/, "network.host: 127.0.0.1"
 
       # 4. Enable dynamic scripts
-      s.sub! "#http.jsonp.enable: true", "script.disable_dynamic: false"
+      s.sub! "# http.jsonp.enable: true", "script.disable_dynamic: false"
     end
 
     inreplace "#{bin}/elasticsearch.in.sh" do |s|
